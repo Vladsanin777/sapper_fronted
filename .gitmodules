@@ -1,0 +1,3 @@
+[submodule "app/src/main/cpp/sapper_backend"]
+	path = app/src/main/cpp/sapper_backend
+	url = git@github.com:Vladsanin777/sapper_backend.git

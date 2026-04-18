@@ -2,8 +2,16 @@
 # documentation: https://d.android.com/studio/projects/add-native-code.html.
 # For more examples on how to use CMake, see https://github.com/android/ndk-samples.
 
+# Указываем стандарт C (например, C99 или C11)
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+
+# (Опционально) Добавляем флаги для строгого соответствия C
+add_compile_options("-xc")
+
 # Sets the minimum CMake version required for this project.
 cmake_minimum_required(VERSION 3.22.1)
+
 
 # Declares the project name. The project name can be accessed via ${ PROJECT_NAME},
 # Since this is the top level CMakeLists.txt, the project name is also accessible
@@ -24,9 +32,23 @@ project("sapper")
 # System.loadLibrary() and pass the name of the library defined here;
 # for GameActivity/NativeActivity derived applications, the same library name must be
 # used in the AndroidManifest.xml file.
+# Явно перечисляем файлы БЕЗ использования переменных пути
+# Если файлы лежат в той же папке, что и этот конфиг:
 add_library(${CMAKE_PROJECT_NAME} SHARED
-    # List C/C++ source files with relative paths to this CMakeLists.txt.
-    native-lib.cpp)
+    sapper_backend/src/cell/cell.c
+    sapper_backend/src/row/row.c
+    sapper_backend/src/mins_field/mins_field.c
+    sapper_backend/jni/general/General.c
+    sapper_backend/jni/mins_field/Mins_field.c
+)
+
+# Указываем папки для поиска заголовков (пути к папкам!)
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
+    .
+    sapper_backend/src
+    .
+    sapper_backend/jni
+)
 
 # Specifies libraries CMake should link to your target library. You
 # can link libraries from various origins, such as libraries defined in this

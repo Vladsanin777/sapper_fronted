@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Sapper</string>
+    <string name="get_free_cell">Free cell: </string>
+    <string name="begin_game">GO!</string>
+    <string name="count_rows">rows: </string>
+    <string name="count_columns">columns: </string>
+    <string name="count_mins">mins: </string>
 </resources>

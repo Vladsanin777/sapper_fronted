@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.sapper"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -57,4 +57,6 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation("io.github.ShawnLin013:number-picker:2.4.13")
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("io.github.euptron:bidirectional-llm:0.1.0")
 }

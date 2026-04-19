@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="picker_text_color">#AAAAAA</color>
+    <color name="picker_selected_text_color">#FFFFFF</color>
+    <color name="picker_divider_color">#444444</color>
+</resources>

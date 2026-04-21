@@ -6,4 +6,8 @@
     <string name="count_columns">"columns: "</string>
     <string name="count_mins">"mins: "</string>
     <string name="show_seconds">"show seconds: "</string>
+    <string name="victory">"Victory"</string>
+    <string name="defeat">"Defeat"</string>
+    <string name="percent">"%"</string>
+    <string name="default_value">"50"</string>
 </resources>

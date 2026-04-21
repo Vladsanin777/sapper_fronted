@@ -29,7 +29,8 @@ public class MinsField {
 
     private native void init(long rows, long cols, long mins);
 
-    public native byte getCountMins(long row, long col);
+    public native long getCountMins();
+    public native byte getCountMinsNear(long row, long col);
 
     public native boolean isMin(long row, long col);
 

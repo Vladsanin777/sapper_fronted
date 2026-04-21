@@ -1,6 +1,8 @@
 package com.example.sapper;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatButton;
@@ -23,10 +25,22 @@ public class Cell extends AppCompatButton {
         m_indexColumn = indexColumn;
     }
 
-    public boolean open() {
-        boolean isOpen = m_field.open(m_indexRow, m_indexColumn);
+    public void open() {
+        boolean isMin = m_field.open(m_indexRow, m_indexColumn);
         updateShow();
-        return isOpen;
+
+        if (isMin) {
+            Intent intent = new Intent(getContext(), Result.class);
+
+            intent.putExtra("is_victory", false);
+            Log.d("rows", String.valueOf(m_field.getCountRows()));
+            intent.putExtra("count_rows", m_field.getCountRows());
+            intent.putExtra("count_columns",m_field.getCountCols());
+            intent.putExtra("count_mins",m_field.getCountMins());
+
+            // startActivity(getContext(), intent, m_bundle);
+            getContext().startActivity(intent);
+        }
     }
 
     public boolean isOpen() {

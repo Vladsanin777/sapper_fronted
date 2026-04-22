@@ -24,7 +24,10 @@
             android:name=".Game"
             android:exported="false"/>
         <activity
-            android:name=".Result"
+            android:name=".Victory"
+            android:exported="false"/>
+        <activity
+            android:name=".Defeat"
             android:exported="false"/>
     </application>
 

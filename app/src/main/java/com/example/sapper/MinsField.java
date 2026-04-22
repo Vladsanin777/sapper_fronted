@@ -44,9 +44,15 @@ public class MinsField {
 
     public native long getCountCols();
 
-    public native boolean isLive();
+    public native long getCountEmpty();
 
-    public native long getCountFree();
+    public native long getCountEmptyOpen();
+
+    public native long getCountEmptyClose();
+
+    public native byte getPercentVictory();
+
+    public native boolean isLive();
 
     public native boolean isVictory();
 

@@ -1,5 +1,8 @@
 package com.example.sapper;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -15,6 +18,8 @@ public class Cell extends AppCompatButton {
     public Cell(Context context, MinsField field) {
         super(context);
         m_field = field;
+        setOnClickListener(this::onClickCell);
+        setOnLongClickListener(this::onLongClickCell);
     }
 
     public void setIndexRow(int indexRow) {
@@ -27,19 +32,33 @@ public class Cell extends AppCompatButton {
 
     public void open() {
         boolean isMin = m_field.open(m_indexRow, m_indexColumn);
+        Context context = getContext();
+
         updateShow();
 
-        if (isMin) {
-            Intent intent = new Intent(getContext(), Result.class);
+        if (context instanceof Activity) {
+            Activity activity = (Activity) context;
 
-            intent.putExtra("is_victory", false);
-            Log.d("rows", String.valueOf(m_field.getCountRows()));
-            intent.putExtra("count_rows", m_field.getCountRows());
-            intent.putExtra("count_columns",m_field.getCountCols());
-            intent.putExtra("count_mins",m_field.getCountMins());
+            if (isMin) {
+                Intent intent = new Intent(getContext(), Defeat.class);
 
-            // startActivity(getContext(), intent, m_bundle);
-            getContext().startActivity(intent);
+                intent.putExtra("percent_victory", m_field.getPercentVictory());
+                intent.putExtra("count_rows", m_field.getCountRows());
+                intent.putExtra("count_columns", m_field.getCountCols());
+                intent.putExtra("count_mins", m_field.getCountMins());
+
+                context.startActivity(intent);
+                activity.finish();
+            } else if (m_field.isVictory()) {
+                Intent intent = new Intent(getContext(), Victory.class);
+
+                intent.putExtra("count_rows", m_field.getCountRows());
+                intent.putExtra("count_columns", m_field.getCountCols());
+                intent.putExtra("count_mins", m_field.getCountMins());
+
+                context.startActivity(intent);
+                activity.finish();
+            }
         }
     }
 
@@ -49,10 +68,12 @@ public class Cell extends AppCompatButton {
 
     public void upFlag() {
         m_field.upFlag(m_indexRow, m_indexColumn);
+        updateHide();
     }
 
     public void downFlag() {
         m_field.downFlag(m_indexRow, m_indexColumn);
+        updateHide();
     }
 
     public boolean isFlag() {
@@ -63,9 +84,13 @@ public class Cell extends AppCompatButton {
         return m_field.isMin(m_indexRow, m_indexColumn);
     }
 
+    public byte getCountMinsNear() {
+        return m_field.getCountMinsNear(m_indexRow, m_indexColumn);
+    }
+
     public void updateHide() {
         if (isOpen()) {
-            setText("-");
+            setText(String.valueOf(getCountMinsNear()));
         } else if (isFlag()) {
             setText("/");
         } else {
@@ -75,7 +100,7 @@ public class Cell extends AppCompatButton {
 
     public void updateShow() {
         if (isOpen()) {
-            setText("-");
+            setText(String.valueOf(getCountMinsNear()));
         } else if (isFlag()) {
             if (isMin()) {
                 setText("+");
@@ -102,5 +127,14 @@ public class Cell extends AppCompatButton {
                 }
                 break;
         }
+    }
+
+    public boolean onLongClickCell(View view) {
+        if (isFlag()) {
+            downFlag();
+        } else {
+            upFlag();
+        }
+        return true;
     }
 }

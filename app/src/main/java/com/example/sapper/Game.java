@@ -45,7 +45,6 @@ public class Game extends AppCompatActivity {
             holder.m_cell.setIndexRow(position / m_countColumns);
             holder.m_cell.setIndexColumn(position % m_countColumns);
             holder.m_cell.updateHide();
-            holder.m_cell.setOnClickListener(holder.m_cell::onClickCell);
         }
 
         @Override

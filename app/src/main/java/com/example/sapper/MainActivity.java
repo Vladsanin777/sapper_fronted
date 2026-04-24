@@ -40,10 +40,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickStartGame(View view) {
         Intent intent = new Intent(this, Game.class);
-        intent.putExtra("count_rows", m_rows.getValue());
-        intent.putExtra("count_columns", m_columns.getValue());
-        intent.putExtra("count_mins", m_mins.getValue());
-        intent.putExtra("count_show_seconds", m_show_seconds.getValue());
+        intent.putExtra("count_rows", (long) m_rows.getValue());
+        intent.putExtra("count_columns", (long) m_columns.getValue());
+        intent.putExtra("count_mins", (long) m_mins.getValue());
+        intent.putExtra("count_show_seconds", (long) m_show_seconds.getValue());
 
         startActivity(intent);
     }

@@ -5,6 +5,7 @@ import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 
@@ -14,12 +15,22 @@ public class Cell extends AppCompatButton {
     private int m_indexRow;
     private int m_indexColumn;
     private MinsField m_field;
+    private View.OnClickListener m_openCell;
+    private View.OnClickListener m_victory;
+    private View.OnClickListener m_defeat;
 
-    public Cell(Context context, MinsField field) {
+    public Cell(Context context, MinsField field,
+                View.OnClickListener openCell,
+                View.OnClickListener victory,
+                View.OnClickListener defeat) {
         super(context);
         m_field = field;
+        m_openCell = openCell;
+        m_victory = victory;
+        m_defeat = defeat;
         setOnClickListener(this::onClickCell);
         setOnLongClickListener(this::onLongClickCell);
+        setBackgroundColor(Color.TRANSPARENT);
     }
 
     public void setIndexRow(int indexRow) {
@@ -30,34 +41,19 @@ public class Cell extends AppCompatButton {
         m_indexColumn = indexColumn;
     }
 
-    public void open() {
+    public void open(View view) {
         boolean isMin = m_field.open(m_indexRow, m_indexColumn);
         Context context = getContext();
 
-        updateShow();
+        updateHide();
 
         if (context instanceof Activity) {
             Activity activity = (Activity) context;
 
             if (isMin) {
-                Intent intent = new Intent(getContext(), Defeat.class);
-
-                intent.putExtra("percent_victory", m_field.getPercentVictory());
-                intent.putExtra("count_rows", m_field.getCountRows());
-                intent.putExtra("count_columns", m_field.getCountCols());
-                intent.putExtra("count_mins", m_field.getCountMins());
-
-                context.startActivity(intent);
-                activity.finish();
+                m_defeat.onClick(view);
             } else if (m_field.isVictory()) {
-                Intent intent = new Intent(getContext(), Victory.class);
-
-                intent.putExtra("count_rows", m_field.getCountRows());
-                intent.putExtra("count_columns", m_field.getCountCols());
-                intent.putExtra("count_mins", m_field.getCountMins());
-
-                context.startActivity(intent);
-                activity.finish();
+                m_victory.onClick(view);
             }
         }
     }
@@ -90,43 +86,41 @@ public class Cell extends AppCompatButton {
 
     public void updateHide() {
         if (isOpen()) {
-            setText(String.valueOf(getCountMinsNear()));
+            if (isMin()) {
+                setText(R.string.min_open);
+            } else {
+                setText(String.valueOf(getCountMinsNear()));
+            }
         } else if (isFlag()) {
-            setText("/");
+            setText(R.string.flag);
         } else {
-            setText(" ");
+            setText(R.string.space);
         }
     }
 
     public void updateShow() {
         if (isOpen()) {
-            setText(String.valueOf(getCountMinsNear()));
+            if (isMin()) {
+                setText(R.string.min_open);
+            } else {
+                setText(String.valueOf(getCountMinsNear()));
+            }
         } else if (isFlag()) {
             if (isMin()) {
-                setText("+");
+                setText(R.string.flag_finish);
             } else {
-                setText("/");
+                setText(R.string.flag);
             }
         } else if (isMin()) {
-            setText("*");
+            setText(R.string.min_close);
         } else {
-            setText(" ");
+            setText(R.string.space);
         }
     }
 
     public void onClickCell(View view) {
-        switch (m_field.getMode()) {
-            case BASIC:
-                open();
-                break;
-            case FLAG:
-                if (isFlag()) {
-                    downFlag();
-                } else {
-                    upFlag();
-                }
-                break;
-        }
+        open(view);
+        m_openCell.onClick(view);
     }
 
     public boolean onLongClickCell(View view) {

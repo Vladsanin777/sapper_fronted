@@ -11,7 +11,7 @@ final public class Victory extends Result {
 
         TextView result = findViewById(R.id.result);
 
-        result.setBackgroundColor(0x000000FF);
+        result.setBackgroundResource(R.color.victory);
         result.setText(R.string.victory);
         TextView percentVictory = findViewById(R.id.percent_victory);
         percentVictory.setVisibility(View.GONE);

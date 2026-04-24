@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">"Сапер"</string>
+    <string name="free_cell">"Свободных ячеек: "</string>
+    <string name="begin_game">"СТАРТ!"</string>
+    <string name="count_rows">"строк: "</string>
+    <string name="count_columns">"колонок: "</string>
+    <string name="count_mins">"мин: "</string>
+    <string name="show_seconds">"показывать секунд: "</string>
+    <string name="victory">"Победа"</string>
+    <string name="defeat">"Поражение"</string>
+    <string name="percent">"%"</string>
+    <string name="default_value">"50"</string>
+    <string name="menu">"Меню"</string>
+    <string name="again">"Заново"</string>
+    <string name="min_open">"💥"</string>
+    <string name="min_close">"💣"</string>
+    <string name="flag">"🚩"</string>
+    <string name="flag_finish">"🎌"</string>
+    <string name="space">" "</string>
+</resources>

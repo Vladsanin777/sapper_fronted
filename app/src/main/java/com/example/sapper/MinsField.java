@@ -1,11 +1,7 @@
 package com.example.sapper;
 
 public class MinsField {
-    public enum Mode {
-        BASIC, FLAG
-    }
     private long m_nativePtr = 0;
-    private Mode m_mode;
 
     public MinsField(long rows, long cols, long mins) {
         init(rows, cols, mins);
@@ -13,18 +9,6 @@ public class MinsField {
 
     public void finalize() {
         destroy();
-    }
-
-    public void modeBasic() {
-        m_mode = Mode.BASIC;
-    }
-
-    public void modeFlag() {
-        m_mode = Mode.FLAG;
-    }
-
-    public Mode getMode() {
-        return m_mode;
     }
 
     private native void init(long rows, long cols, long mins);

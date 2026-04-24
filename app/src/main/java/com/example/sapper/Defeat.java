@@ -11,7 +11,7 @@ final public class Defeat extends Result {
 
         TextView result = findViewById(R.id.result);
 
-        result.setBackgroundColor(0x00FF0000);
+        result.setBackgroundResource(R.color.defeat);
         result.setText(R.string.defeat);
 
         Intent intent = getIntent();

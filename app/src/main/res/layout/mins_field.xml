@@ -12,7 +12,7 @@
         android:id="@+id/free_cell"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/get_free_cell"
+        android:text="@string/free_cell"
         android:textSize="34sp"
         android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"
